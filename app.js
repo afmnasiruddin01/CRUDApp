@@ -13,10 +13,6 @@ const __dirname = dirname(__filename);
 
 var app = express();
 
-// view engine setup
-app.set("views", join(__dirname, "views"));
-app.set("view engine", "pug");
-
 app.use(logger("dev"));
 app.use(json());
 app.use(urlencoded({ extended: false }));
@@ -33,10 +29,8 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-  res.status(err.status || 500).json({
-    message: err.message,
-    error: req.app.get("env") === "development" ? err : {},
-  });
+  res.status(err.status || 500);
+  res.send(err.message);
 });
 
 export default app;
